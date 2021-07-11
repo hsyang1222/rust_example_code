@@ -1,0 +1,91 @@
+1.
+다음 코드의 오류에 대해 설명하시오
+fn dangle() -> &String { 
+
+    let s = String::from("hello"); 
+
+    &s 
+}
+
+답: '&s'가 아닌 's'만 써준다.  
+2. 
+fn main() {
+    struct User {
+        username: String,
+        email: String,
+        sign_in_count: u64,
+        active: bool,
+    }
+
+    fn build_user(email: String, username: String) -> User {
+        User {
+            email: email,
+            username: username,
+            active: true,
+            sign_in_count: 1,
+        }
+    }
+}
+
+위 코드를 run하면 run이 되기는 하나 러스트 특성상 warnig메시지를 띄어준다.
+warning: struct is never constructed: `User`
+warning: function is never used: `build_user`
+
+나는 이런 워닝메시지는 별로 필요없어 안뜨게 하려한다.
+맨 윗줄에 코드한줄을 추가하시오.
+
+답 : #![allow(unused)]
+
+3.
+let user2 = User {
+    email: String::from("another@example.com"),
+    username: String::from("anotherusername567"),
+    active: user1.active, //라인
+    sign_in_count: user1.sign_in_count, //라인
+};
+
+위 코드에서 //라인이라 표시한 두줄은 user1인스턴스의 필드와 같은 부분이다.
+구조체 갱신법(struct update syntax)을 사용, 변화하지 않는 필드들을 굳이 명시적으로 할당하지 않고
+..구문을 사용하여 간단히 하시오.
+
+답: ..user1
+
+4. 열거형은 어떤 단어로 시작되는가
+
+답: enum
+
+5. 구조체와 열거형에 ( )를 사용해서 메소드를 정의한다.
+괄호에 들어갈 단어는?
+
+답 : impl
+
+6. 러스트에는 null이 없지만, 값의 존재 혹은 부재의 개념을 표현할 열거형이 있다.
+열거형 Option<T>의 variant  두가지를 적으시오.
+
+답 : Some(T), None // <T>는 어떤 데이터 타입이라도 가질수 있음을 의미
+
+7. match사용시에 ( )패턴을 이용하여 분기의 나머지 유효값을 매치시킬수있다.
+변경자(placeholder)라고도 하는 ()에 들어갈 말은?
+
+답 : _ 
+
+8. match 문을 위한 문법적 설탕(syntax sugar)이라 불리는 ( )는??
+답 : if let
+
+9.러스트에서는 스코프를 벗어나 할당된 메모리가 반납될때 이것이 자동 호출된다. 이것은?
+답: drop
+
+10. "hello"라는 문자열을 변경가능하도록 s에 할당(선언)하시오.
+틀린예) let s = "hello" 여기서 변수s는 스트링 리터럴로서 변경불가
+답: let mut s  = String ::from("hello"); 
+---------------------------------------------
+연관함수(associated functions) 정의방법
+구조체와 열거형
+유사 유닛 구조체(unit-like structs)
+트레잇(trait)-10장
+
+implementation(구현)
+열거(enumerations)
+derive파생
+_ 변경자(placeholder)
+보일러플레이트코드Boilerplate code : 별 수정 없이 반복적으로 사용되는 코드
