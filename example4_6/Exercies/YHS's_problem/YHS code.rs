@@ -1,91 +1,62 @@
+/*Q2.2차원 좌표상에 존재하는 삼각형은 그 꼭지점을 (x,y)로 이루어진 좌표 3개로
+표현하여 저장할 수 있다. 사용자로부터 (x,y) 좌표 3개를 입력 받고, 이 삼각형의
+넓이를 구하는 프로그램을 작성하시오. 단, 구조체 또는 열거형을 이용하여 (x,y)를
+저장하시오.
+*/
+// a(a1,a2) b(b1,b2) c(c1,c2) / s= 1/2{(a1-c1)*(b2-c2)-(a2-c2)*(b1-c1)}
 use std::io;
-
 #[derive(Debug)]
-struct Point{
-    x : f32,
-    y : f32,
+
+struct Location {
+    x: i32,
+    y: i32,
 }
 
-impl Point{
-    fn distance(one:&Point, two:&Point) -> f32{
-        ((one.x-two.x).powf(2.) + (one.y - two.y).powf(2.)).sqrt()
-    }
+fn main() {
+    let mut a1 = String::new();
+    let mut a2 = String::new();
+    let mut b1 = String::new();
+    let mut b2 = String::new();
+    let mut c1 = String::new();
+    let mut c2 = String::new();
 
-    fn clone(&self) -> Point{
-        Point{x:self.x, y:self.y}
-    }
-}
+    io::stdin().read_line( & mut a1)
+        .expect("Failed");
+    io::stdin().read_line( & mut a2)
+        .expect("Failed");
+    let a = Location {
+        x: a1.trim().parse()
+            .expect("num!!"),
+        y: a2.trim().parse()
+            .expect("num!!"),
+    };
 
-#[derive(Debug)]
-struct Tri{
-    P1 : Point,
-    P2 : Point,
-    P3 : Point,
-}
+    io::stdin().read_line( & mut b1)
+        .expect("Failed");
+    io::stdin().read_line( & mut b2)
+        .expect("Failed");
+    let b = Location {
+        x: b1.trim().parse()
+            .expect("Number!!"),
+        y: b2.trim().parse()
+            .expect("num!!")
+    };
 
-impl Tri{
-    fn init() -> Tri{
-        Tri{P1:Point{x:0., y:0.},
-            P2:Point{x:0., y:0.},
-            P3:Point{x:0., y:0.}}
-    }
-    fn area(&self) -> f32 {
-        println!("{:?}", &self);
-        let P4 = Point{ x:(self.P1.x + self.P2.x)/2.,
-                    y:(self.P1.y + self.P2.y)/2.};
-        let width:f32 = Point::distance(&self.P1, &self.P2);
-        let height:f32 = Point::distance(&self.P3, &P4);
-        width * height / 2.
-    }
+    io::stdin().read_line( & mut c1)
+        .expect("Failed");
+    io::stdin().read_line( & mut c2)
+        .expect("Failed");
+    let c = Location {
+        x: c1.trim().parse()
+            .expect("Number!!"),
+        y: c2.trim().parse()
+            .expect("num!!"),
+    };
 
-    fn swap(&mut self){
-        // make sure distance between p1 and p2 is longest path
-        let p1p2 = Point::distance(&self.P1, &self.P2);
-        let p2p3 = Point::distance(&self.P3, &self.P2);
-        let p1p3 = Point::distance(&self.P1, &self.P3);
-
-        if p1p2 >= p1p3 && p1p2 >= p2p3{
-            //longest path is p1-p2
-
-        }else if p1p3 >= p1p2 && p1p3 >= p2p3 {
-            println!("set force P1-P2 is longest path. swap (P2, P3)");
-            //longest path is p1-p3. swap(p2,p3)
-            let temp = self.P2.clone();
-            self.P2 = self.P3.clone();
-            self.P3 = temp;
-        }else{
-            println!("set force P1-P2 is longest path. swap (P1, P3)");
-            //longest path is p2-p3. swap(p1, p3)
-            let temp = self.P1.clone();
-            self.P1 = self.P3.clone();
-            self.P3 = temp;
-        }
-    }
-}
-
-fn get_point_from_keyboard() -> Point{
-    println!("insert x");
-    let mut inser_string = String::new();
-    io::stdin().read_line(&mut inser_string).expect("get fail");
-    let x = inser_string.trim().parse().expect("parse x fail");
-    println!("insert y");
-    let mut inser_string = String::new();
-    io::stdin().read_line(&mut inser_string).expect("get fail");
-    let y = inser_string.trim().parse().expect("parse y fail");
-    Point{x:x, y:y}
-}
-
-fn main(){
-    let mut t = Tri::init();
-
-    println!("insert Point1.");
-    t.P1 = get_point_from_keyboard();
-    println!("insert Point2.");
-    t.P2 = get_point_from_keyboard();
-    println!("insert Point3.");
-    t.P3 = get_point_from_keyboard();
-
-    t.swap();
-    println!("area of triangle:{}", t.area());
+    let s = ((a.x-c.x)*(b.y-c.y)-(a.y-c.y)*(b.x-c.x))/2;
+    if s > 0
+        {println!("dimentions {:?}", s);}
+    else
+        {println!("dimentions {:?}", -s);}
 
 }
