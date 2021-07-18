@@ -13,19 +13,21 @@ for i in &mut v {
 ## 이희준의 기본문제
 
 1.
+```rust
 let mut v = vec![100, 32, 57]; 
 
 for i in &mut v { 
 	//여기에 vec의 각 요소에 10을 더하는 코드 작성 
 } 
-
+```
 2.
+```rust
 Let s1 = String::from(“Lee”); 
 Let s2 = String::from(“Hui”); 
 Let s3 = String::from(“jun”);  
 
 Let s = //”LeeHuijun” 값을 넣는 코드를 작성 
-
+```
 
 # 코딩 문제
 ## 양현식 코딩 문제
